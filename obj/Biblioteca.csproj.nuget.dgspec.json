@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca\\Biblioteca.csproj": {}
+    "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca_app\\Biblioteca.csproj": {}
   },
   "projects": {
-    "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca\\Biblioteca.csproj": {
+    "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca_app\\Biblioteca.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca\\Biblioteca.csproj",
+        "projectUniqueName": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca_app\\Biblioteca.csproj",
         "projectName": "Biblioteca",
-        "projectPath": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca\\Biblioteca.csproj",
+        "projectPath": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca_app\\Biblioteca.csproj",
         "packagesPath": "C:\\Users\\Rodrigo S\\.nuget\\packages\\",
-        "outputPath": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca\\obj\\",
+        "outputPath": "D:\\Senac CURSO\\Modulo02\\UC07\\Biblioteca_app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rodrigo S\\AppData\\Roaming\\NuGet\\NuGet.Config"
