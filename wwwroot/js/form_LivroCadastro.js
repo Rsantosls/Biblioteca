@@ -1,11 +1,3 @@
-// var check = document.getElementById("titulo_livro");
-// check.onblur = test;
-
-// function test()
-// {
-//     alert("teste");
-// }
-
 
 function check_cadastroLivro(){
     var submit = document.getElementById("submit_livro_cadastro");

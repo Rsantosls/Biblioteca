@@ -22,7 +22,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table > 
+        <table class="table table-striped"> 
             <thead>
                 <tr><th>Id</th>
                 <th>Usuario</th>
@@ -37,7 +37,7 @@
                 @foreach(Emprestimo e in Model)
                 {
                 <tr>
-                    <td>@e.Id</td>
+                    <td id="msgList">@e.Id</td>
                     <td>@e.NomeUsuario</td>
                     <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
                     <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
@@ -50,4 +50,6 @@
         </table>
     </div>
 </div>
+
+<script src="~/js/listagem_alerta.js"></script>
 
