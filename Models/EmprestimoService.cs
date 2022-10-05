@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
+using System;
+
 
 namespace Biblioteca.Models
 {
@@ -26,6 +28,7 @@ namespace Biblioteca.Models
                 emprestimo.LivroId = e.LivroId;
                 emprestimo.DataEmprestimo = e.DataEmprestimo;
                 emprestimo.DataDevolucao = e.DataDevolucao;
+                emprestimo.Devolvido = e.Devolvido;
 
                 bc.SaveChanges();
             }
@@ -37,9 +40,8 @@ namespace Biblioteca.Models
             using(BibliotecaContext bc = new BibliotecaContext())
             {
                 bc.Emprestimos.Include(e => e.Livro).ToList();
-                
-                IQueryable<Emprestimo> query;
 
+                IQueryable<Emprestimo> query;
                 if (filtro !=null)
                 {
 
@@ -64,9 +66,8 @@ namespace Biblioteca.Models
                     query = bc.Emprestimos;
                 }
 
-                // return bc.Emprestimos.Include(e => e.Livro).ToList();
+                //return bc.Emprestimos.Include(e => e.Livro).ToList();
                 //return query.OrderBy(l => l.Titulo).ToList();
-
                 return query.OrderByDescending(e => e.DataDevolucao).ToList();
             }
         }
