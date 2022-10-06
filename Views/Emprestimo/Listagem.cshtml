@@ -1,7 +1,14 @@
-@model ICollection<Emprestimo>
+@model List<Emprestimo>
 @using System
 @{
     ViewData["Title"] = "Listagem de Empréstimos";
+
+    int iPagina = Int32.Parse(ViewData["LivrosPorPagina"].ToString());
+    int aPagina = Int32.Parse(ViewData["PaginaAtual"].ToString());
+    int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
+    int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
+    string alert = "";
+
 }
 
 <div class="row">
@@ -13,10 +20,20 @@
                     <option value="Livro">Livro</option>
                 </select>
             </div>
+
             <div class="form-group mb-2 mx-sm-3">
                 <input type="text" placeholder="Filtro" name="Filtro" class="form-control" id="txtFiltro" />
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+
+            <div class="form-group mb-2 me-sm-3">
+                <select class="form-control" name="iPagina" id="iPagina">
+                    <option value="10">10 Livros</option>
+                    <option value="30">30 Livros</option>
+                    <option value="@Model.Count">Todos</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 mx-sm-3">Pesquisar</button>
         </form>
     </div>
 </div>
@@ -44,15 +61,18 @@
                 </thead>
                 <tbody>
 
-                    @foreach (Emprestimo e in Model)
+                    @for (int i = (aPagina - 1) * nPagina; i < (nPagina * aPagina < Model.Count ? nPagina * aPagina :
+                   Model.Count); i++)
                     {
                         DateTime hoje = DateTime.Now;
-                        int compare = DateTime.Compare(e.DataDevolucao, hoje);
-                        Console.WriteLine("Data devolução " + e.DataDevolucao);
-                        Console.WriteLine("Data de hoje " + hoje);
-                        Console.WriteLine(compare);
-
+                        Emprestimo e = Model[i];
+                        int compare = (DateTime.Compare(e.DataDevolucao, hoje));
                         @*
+                            Console.WriteLine("Id do Livro: " + Model[i].Id + "| Título: " + Model[i].Livro.Titulo);
+                            Console.WriteLine("Data devolução " + e.DataDevolucao);
+                            Console.WriteLine("Data de hoje " + hoje);
+                            Console.WriteLine(compare);
+
                             Calculo do DateTime.Compare:
                             1 = A data de devolução está a frente da data atual;
                             0 = Datas iguais;
@@ -61,31 +81,33 @@
 
                         @if (compare == -1)
                         {
-                            <tr class="table-danger">
-                                <td>@e.Id</td>
-                                <td>@e.NomeUsuario</td>
-                                <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
-                                <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
-                                <td>@e.Livro.Titulo</td>
-                                <td>@e.Livro.Autor</td>
-                                <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
-                            </tr>
+                            alert = "table-danger";
                         }
                         else
                         {
-                            <tr>
-                                <td>@e.Id</td>
-                                <td>@e.NomeUsuario</td>
-                                <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
-                                <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
-                                <td>@e.Livro.Titulo</td>
-                                <td>@e.Livro.Autor</td>
-                                <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
-                            </tr>
+                            alert = "";
                         }
+
+                        <tr class="@alert">
+                            <td>@Model[i].Id</td>
+                            <td>@Model[i].NomeUsuario</td>
+                            <td>@Model[i].DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                            <td>@Model[i].DataDevolucao.ToString("dd/MM/yyyy")</td>
+                            <td>@Model[i].Livro.Titulo</td>
+                            <td>@Model[i].Livro.Autor</td>
+                            <td><a href="/Emprestimo/Edicao/@Model[i].Id">Editar</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
         }
+
+        <div style="text-align: right;" id="SeletorPagina">
+            <span>Página</span>
+            @for (int i = 1; i <= nTotalPagina; i++)
+            {
+                <span style="font-size: 20px; font-weight: bold;"><a href="/Livro/Listagem?aPagina=@i">@i </a></span>
+            }
+        </div>
     </div>
 </div>

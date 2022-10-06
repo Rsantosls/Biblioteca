@@ -1,9 +1,20 @@
 @model List<Livro>
 @{
     ViewData["Title"] = "Listagem de Livros";
+
+    // As duas variáveis puxam a informação salva no ViewData em LivroController
+    int iPagina = Int32.Parse(ViewData["LivrosPorPagina"].ToString());
+    int aPagina = Int32.Parse(ViewData["PaginaAtual"].ToString());
+
+    // Numero da pagina é igual a: o total de itens na model é menor que 3(iPagina)? Se sim, usa o comando Model Count para a listagem, do contrário, utiliza o total da iPagina(3).//
+    int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
+
+    // O total de paginas que aparecem é igual a: o total de itens na model dividido pelo número de paginas criadas, somado a um calculo que verifica se a divisão possui resto ou não, para adicionar a pagina com os itens restantes.
+    int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
 }
 <div class="row">
     <div class="col-md-12">
+
         <form class="form-inline" method="POST">
             <div class="form-group mb-2">
                 <select name="TipoFiltro" class="form-control">
@@ -11,10 +22,20 @@
                     <option value="Titulo">Título</option>
                 </select>
             </div>
+
             <div class="form-group mb-2 mx-sm-3">
                 <input type="text" placeholder="Filtro" name="Filtro" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+
+            <div class="form-group mb-2 me-sm-3">
+                <select  class="form-control" name="iPagina" id="iPagina">
+                    <option value="10">10 Livros</option>
+                    <option value="30">30 Livros</option>
+                    <option value="@Model.Count">Todos</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 mx-sm-3">Pesquisar</button>
         </form>
     </div>
 </div>
@@ -39,18 +60,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Livro l in Model)
+                    @for (int i = (aPagina - 1) * nPagina; i < (nPagina * aPagina < Model.Count ? nPagina * aPagina :
+                   Model.Count); i++)
                     {
                         <tr>
-                            <td>@l.Id</td>
-                            <td>@l.Titulo</td>
-                            <td>@l.Autor</td>
-                            <td>@l.Ano</td>
-                            <td><a href="/Livro/Edicao/@l.Id">Editar</a></td>
+                            <td>@Model[i].Id</td>
+                            <td>@Model[i].Titulo</td>
+                            <td>@Model[i].Autor</td>
+                            <td>@Model[i].Ano</td>
+                            <td><a href="/Livro/Edicao/@Model[i].Id">Editar</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
+
+        <div style="text-align: right;" id="SeletorPagina">
+            <span>Página</span>
+            @for (int i = 1; i <= nTotalPagina; i++)
+            {
+                <span style="font-size: 20px; font-weight: bold;"><a href="/Livro/Listagem?aPagina=@i">@i </a></span>
+            }
+        </div>
     </div>
 </div>
