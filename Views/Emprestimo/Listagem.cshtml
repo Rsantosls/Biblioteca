@@ -1,4 +1,5 @@
 @model ICollection<Emprestimo>
+@using System
 @{
     ViewData["Title"] = "Listagem de Empréstimos";
 }
@@ -22,7 +23,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @if(Model.Count == 0)
+        @if (Model.Count == 0)
         {
             <br>
             <h3 style="text-align: center;">Nenhum registro encontrado.</h3>
@@ -42,17 +43,46 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach (Emprestimo e in Model)
                     {
-                        <tr>
-                            <td>@e.Id</td>
-                            <td>@e.NomeUsuario</td>
-                            <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
-                            <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
-                            <td>@e.Livro.Titulo</td>
-                            <td>@e.Livro.Autor</td>
-                            <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
-                        </tr>
+                        DateTime hoje = DateTime.Now;
+                        int compare = DateTime.Compare(e.DataDevolucao, hoje);
+                        Console.WriteLine("Data devolução " + e.DataDevolucao);
+                        Console.WriteLine("Data de hoje " + hoje);
+                        Console.WriteLine(compare);
+
+                        @*
+                            Calculo do DateTime.Compare:
+                            1 = A data de devolução está a frente da data atual;
+                            0 = Datas iguais;
+                            -1 = A data de devolução já passou em relação a atual ;
+                        *@
+
+                        @if (compare == -1)
+                        {
+                            <tr class="table-danger">
+                                <td>@e.Id</td>
+                                <td>@e.NomeUsuario</td>
+                                <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                                <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
+                                <td>@e.Livro.Titulo</td>
+                                <td>@e.Livro.Autor</td>
+                                <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@e.Id</td>
+                                <td>@e.NomeUsuario</td>
+                                <td>@e.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                                <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
+                                <td>@e.Livro.Titulo</td>
+                                <td>@e.Livro.Autor</td>
+                                <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
