@@ -1,0 +1,39 @@
+@model Login
+
+<div class="row justify-content-md-center">
+    <form asp-action="Cadastro" method="POST" class="col-md-4">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Nome">Nome</label>
+            <input id="nome_login" asp-for="Nome" class="form-control" oninput="check_cadastroLivro()"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Usuario">Usuário</label>
+            <input id="usuario_login" asp-for="Usuario" class="form-control"  oninput="check_cadastroLivro()"/>
+        </div>
+        <div>
+            <label asp-for="Senha">Senha</label>
+            <input id="senha_login" asp-for="Senha"  oninput="check_cadastroLivro()"/>
+        </div>
+        <input id="submit_usuario_cadastro" type="submit" value="Salvar" class="btn btn-primary" disabled/>
+    </form>
+</div>
+
+@* Para caso os campos já estejam preenchidos, o submit ficar permitido. *@
+<script>
+    window.onload = function () {
+        console.log("Checagem de fórmulário...");
+
+        var submit = document.getElementById("submit_usuario_cadastro");
+        var nome = document.getElementById("nome_login");
+        var usuario = document.getElementById("usuario_login");
+        var senha = document.getElementById("senha_login");
+
+        if (nome.value == 0 && usuario.value == 0 && senha.value == 0) {
+            submit.disabled = true;
+        }
+        else {
+            submit.disabled = false;
+        }
+    }
+</script>

@@ -4,7 +4,7 @@ function check_cadastroEmprestimo() {
     var nome = document.getElementById("nome_cadastro");
     var tel = document.getElementById("tel_cadastro");
 
-    if (nome.value == 0, tel.value.length < 10) {
+    if (nome.value == 0 && tel.value.length < 10) {
         submit.disabled = true;
     }
     else {

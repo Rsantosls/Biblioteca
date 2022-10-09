@@ -31,23 +31,136 @@ namespace Biblioteca.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string login, string senha)
+        public IActionResult Login(Login l)
         {
-            if(login != "admin" || senha != "123")
+            using (BibliotecaContext bc = new BibliotecaContext())
             {
-                ViewData["Erro"] = "Senha inválida";
-                return View();
+                // Objeto vazio para receber os dados da database
+                Login login = new Login();                    
+                // Comando que busca dentro da database(bc) se o valor em (l.usuario) existe para que armazene em "login.Usuario". Do contrário, virá um padrão nulo pelo "SingleOrDefault".
+                login.Usuario = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Usuario).FirstOrDefault();
+                login.Senha = bc.Login.Where(lg => lg.Senha == l.Senha).Select(lg => lg.Senha).FirstOrDefault();
+                login.Id = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Id ).FirstOrDefault();
+                login.Nome = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Nome ).FirstOrDefault();
+
+                // Variáveis para receber a senha criptografa
+                string senhaCrip = MD5Hash.senhaHash(l.Senha);
+                string senhaDBCrip = MD5Hash.senhaHash(login.Senha);
+
+                // Debug
+                // Saída das variaveis que armazenam os dados escritos 
+                Console.WriteLine("==================");
+                Console.WriteLine("Usuario (input): " + l.Usuario);
+                Console.WriteLine("senha (input): " + l.Senha);
+                Console.WriteLine("senha Criptografada (input): " + senhaCrip);
+                Console.WriteLine("==================");
+                Console.WriteLine("");
+
+                // Saída das variaveis que armazenam os dados da database
+                Console.WriteLine("==================");
+                Console.WriteLine("Usuário (database): " + login.Usuario);
+                Console.WriteLine("Senha (database): " + login.Senha);
+                Console.WriteLine("Senha Criptografada (database): " + senhaDBCrip);
+                Console.WriteLine("Id (database): " + login.Id);
+                Console.WriteLine("Nome (database): " + login.Nome);
+                Console.WriteLine("==================");
+                Console.WriteLine("");
+
+
+                // Caso algum campo seja nulo, já emite o erro
+                if (login.Usuario != null)
+                {
+                    // Caso o que foi escrito seja diferente do que foi encontrado na database, gera o mesmo erro. Portanto, se o cruzamento de dados for correto, o login é feito.
+                    if (Equals(l.Usuario, login.Usuario) && Equals(senhaDBCrip, senhaCrip))
+                    {
+                        HttpContext.Session.SetInt32("idLogin", login.Id);
+                        HttpContext.Session.SetString("nomeLogin", login.Nome);
+                        HttpContext.Session.SetString("usuarioLogin", login.Usuario);
+
+                        // Debug
+                        Console.WriteLine("==================");
+                        Console.WriteLine("Login feito com sucesso");
+                        Console.WriteLine("==================");
+                        Console.WriteLine("");
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ViewData["Erro"] = "Erro";
+                        Console.WriteLine("Erro de login_02");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewData["Erro"] = "Erro";
+                    Console.WriteLine("Erro de login_01");
+                    return View();
+                }
+            }
+        }
+
+        public IActionResult UserLogout()
+        {
+            HttpContext.Session.Clear();
+            return View("Login");
+        }
+
+        // Manutenção de Usuários
+        public IActionResult Cadastro()
+        {
+            Autenticacao.CheckLogin(this);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Cadastro(Login l)
+        {
+            LoginServices loginService = new LoginServices();
+
+            if (l.Id == 0)
+            {
+                loginService.Inserir(l);
             }
             else
             {
-                HttpContext.Session.SetString("user", "admin");
-                return RedirectToAction("Index");
+                loginService.Atualizar(l);
             }
+
+            return RedirectToAction("Listagem");
+        }
+
+        // Listagem dos usuarios
+        public IActionResult Listagem()
+        {
+            Autenticacao.CheckLogin(this);
+            LoginServices LoginService = new LoginServices();
+
+            return View(LoginService.ListarTodos());
+        }
+
+        // Edição dos usuarios
+        public IActionResult Edicao(int id)
+        {
+            Autenticacao.CheckLogin(this);
+            LoginServices ls = new LoginServices();
+            Login l = ls.ObterPorId(id);
+            return View(l);
+        }
+
+        // Remoção de usuário
+        public IActionResult Remover(int id)
+        {
+            Autenticacao.CheckLogin(this);
+            LoginServices ls = new LoginServices();
+            ls.Remover(id);
+            return RedirectToAction("Listagem");
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
+
     }
 }

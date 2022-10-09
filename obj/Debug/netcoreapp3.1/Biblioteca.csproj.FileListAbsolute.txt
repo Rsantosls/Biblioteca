@@ -104,3 +104,7 @@ D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\staticwebass
 D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Biblioteca.dll
 D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Biblioteca.pdb
 D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Biblioteca.genruntimeconfig.cache
+D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Razor\Views\Home\Cadastro.cshtml.g.cs
+D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edicao.cshtml.g.cs
+D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Razor\Views\Home\Listagem.cshtml.g.cs
+D:\Senac CURSO\Modulo02\UC07\Biblioteca_app\obj\Debug\netcoreapp3.1\Razor\Views\Home\Remover.cshtml.g.cs
