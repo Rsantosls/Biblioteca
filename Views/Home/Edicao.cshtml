@@ -9,15 +9,15 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Nome">Nome</label>
-                <input id="nome_login" asp-for="Nome" class="form-control" oninput="check_cadastroLivro()" />
+                <input id="nome_login" asp-for="Nome" class="form-control" oninput="check_cadastroUsuario()" />
             </div>
             <div class="form-group">
                 <label asp-for="Usuario">Usuário</label>
-                <input id="usuario_login" asp-for="Usuario" class="form-control" oninput="check_cadastroLivro()" />
+                <input id="usuario_login" asp-for="Usuario" class="form-control" oninput="check_cadastroUsuario()" />
             </div>
             <div>
-                <label asp-for="Senha">Senha</label>
-                <input id="senha_login" asp-for="Senha" class="form-control" oninput="check_cadastroLivro()" />
+                <label asp-for="Senha">Nova Senha</label>
+                <input id="senha_login" asp-for="NovaSenha" class="form-control" oninput="check_cadastroUsuario()" />
             </div>
             <input id="submit_usuario_cadastro" type="submit" value="Salvar" class="btn btn-primary mt-3 col-12" disabled />
         </form>
@@ -34,7 +34,7 @@
         var usuario = document.getElementById("usuario_login");
         var senha = document.getElementById("senha_login");
 
-        if (nome.value == 0 && usuario.value == 0 && senha.value == 0) {
+        if (nome.value == 0, usuario.value == 0, senha.value == 0) {
             submit.disabled = true;
         }
         else {

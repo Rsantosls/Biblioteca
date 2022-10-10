@@ -5,12 +5,13 @@ using System.Collections;
 namespace Biblioteca.Models
 {
     public class LoginServices
-    {       
+    {
         // Inserção de novos usuarios
         public void Inserir(Login l)
         {
             using (BibliotecaContext bc = new BibliotecaContext())
             {
+                l.Senha = MD5Hash.senhaHash(l.Senha).ToLower();
                 bc.Login.Add(l);
                 bc.SaveChanges();
             }
@@ -24,9 +25,11 @@ namespace Biblioteca.Models
                 Login login = bc.Login.Find(l.Id);
                 login.Nome = l.Nome;
                 login.Usuario = l.Usuario;
-                login.Senha = l.Senha;
+                // Aqui eu uso uma variavel que salva temporiamente uma nova senha que substituirá a que está na database.
+                login.Senha = MD5Hash.senhaHash(l.NovaSenha).ToLower();
 
                 bc.SaveChanges();
+
             }
         }
 

@@ -4,7 +4,7 @@ function check_cadastroUsuario() {
     var usuario = document.getElementById("usuario_login");
     var senha = document.getElementById("senha_login");
 
-    if (nome.value == 0 && usuario.value == 0 && senha.value == 0) {
+    if (nome.value == 0, usuario.value == 0, senha.value == 0) {
         submit.disabled = true;
     }
     else {

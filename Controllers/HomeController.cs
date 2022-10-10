@@ -36,18 +36,17 @@ namespace Biblioteca.Controllers
             using (BibliotecaContext bc = new BibliotecaContext())
             {
                 // Objeto vazio para receber os dados da database
-                Login login = new Login();                    
+                Login login = new Login();
+                // Variável para receber a senha criptografa  
+                string senhaCrip = MD5Hash.senhaHash(l.Senha).ToLower();                  
                 // Comando que busca dentro da database(bc) se o valor em (l.usuario) existe para que armazene em "login.Usuario". Do contrário, virá um padrão nulo pelo "SingleOrDefault".
                 login.Usuario = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Usuario).FirstOrDefault();
-                login.Senha = bc.Login.Where(lg => lg.Senha == l.Senha).Select(lg => lg.Senha).FirstOrDefault();
+                login.Senha = bc.Login.Where(lg => lg.Senha == senhaCrip).Select(lg => lg.Senha).FirstOrDefault();
                 login.Id = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Id ).FirstOrDefault();
                 login.Nome = bc.Login.Where(lg => lg.Usuario == l.Usuario).Select(lg => lg.Nome ).FirstOrDefault();
-
-                // Variáveis para receber a senha criptografa
-                string senhaCrip = MD5Hash.senhaHash(l.Senha);
-                string senhaDBCrip = MD5Hash.senhaHash(login.Senha);
-
+                     
                 // Debug
+                // string senhaDBCrip = MD5Hash.senhaHash(login.Senha);
                 // Saída das variaveis que armazenam os dados escritos 
                 Console.WriteLine("==================");
                 Console.WriteLine("Usuario (input): " + l.Usuario);
@@ -60,7 +59,7 @@ namespace Biblioteca.Controllers
                 Console.WriteLine("==================");
                 Console.WriteLine("Usuário (database): " + login.Usuario);
                 Console.WriteLine("Senha (database): " + login.Senha);
-                Console.WriteLine("Senha Criptografada (database): " + senhaDBCrip);
+                Console.WriteLine("Senha Criptografada (database): " + login.Senha);
                 Console.WriteLine("Id (database): " + login.Id);
                 Console.WriteLine("Nome (database): " + login.Nome);
                 Console.WriteLine("==================");
@@ -71,7 +70,7 @@ namespace Biblioteca.Controllers
                 if (login.Usuario != null)
                 {
                     // Caso o que foi escrito seja diferente do que foi encontrado na database, gera o mesmo erro. Portanto, se o cruzamento de dados for correto, o login é feito.
-                    if (Equals(l.Usuario, login.Usuario) && Equals(senhaDBCrip, senhaCrip))
+                    if (Equals(l.Usuario, login.Usuario) && Equals(login.Senha, senhaCrip))
                     {
                         HttpContext.Session.SetInt32("idLogin", login.Id);
                         HttpContext.Session.SetString("nomeLogin", login.Nome);

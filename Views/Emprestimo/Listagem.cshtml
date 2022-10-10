@@ -8,6 +8,7 @@
     int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
     int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
     string alert = "";
+    string alertBtn = "";
 }
 
 <div class="row">
@@ -81,10 +82,12 @@
                         @if (compare == -1)
                         {
                             alert = "table-warning text-dark";
+                            alertBtn = "btn btn-dark";
                         }
                         else
                         {
                             alert = "";
+                            alertBtn = "btn btn-light";
                         }
 
                         <tr class="@alert">
@@ -94,7 +97,7 @@
                             <td>@Model[i].DataDevolucao.ToString("dd/MM/yyyy")</td>
                             <td>@Model[i].Livro.Titulo</td>
                             <td>@Model[i].Livro.Autor</td>
-                            <td><a class="btn btn-light" href="/Emprestimo/Edicao/@Model[i].Id">Editar</a></td>
+                            <td><a class="@alertBtn" href="/Emprestimo/Edicao/@Model[i].Id">Editar</a></td>
                         </tr>
                     }
                 </tbody>
