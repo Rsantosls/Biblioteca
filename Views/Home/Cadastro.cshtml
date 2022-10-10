@@ -1,21 +1,26 @@
 @model Login
+@{
+    ViewData["Title"] = "Cadastro de Usuários";
+}
 
+<h1 class="row justify-content-md-center">Cadastro de Usuários</h1>
 <div class="row justify-content-md-center">
-    <form asp-action="Cadastro" method="POST" class="col-md-4">
-        <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="Nome">Nome</label>
-            <input id="nome_login" asp-for="Nome" class="form-control" oninput="check_cadastroUsuario()"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="Usuario">Usuário</label>
-            <input id="usuario_login" asp-for="Usuario" class="form-control" oninput="check_cadastroUsuario()"/>
-        </div>
-        <div>
-            <label asp-for="Senha">Senha</label>
-            <input id="senha_login" asp-for="Senha"  oninput="check_cadastroUsuario()"/>
-        </div>
-        <input id="submit_usuario_cadastro" type="submit" value="Salvar" class="btn btn-primary" disabled/>
-    </form>    
+    <div class="jumbotron bg-dark text-light col-6">
+        <form asp-action="Cadastro" method="POST">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nome">Nome</label>
+                <input id="nome_login" asp-for="Nome" class="form-control" oninput="check_cadastroUsuario()" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Usuario">Usuário</label>
+                <input id="usuario_login" asp-for="Usuario" class="form-control" oninput="check_cadastroUsuario()" />
+            </div>
+            <div>
+                <label asp-for="Senha">Senha</label>
+                <input id="senha_login" asp-for="Senha" class="form-control" oninput="check_cadastroUsuario()" />
+            </div>
+            <input id="submit_usuario_cadastro" type="submit" value="Salvar" class="btn btn-primary mt-3 col-12" disabled />
+        </form>
+    </div>
 </div>
-

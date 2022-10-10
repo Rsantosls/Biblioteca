@@ -2,14 +2,14 @@
 @{
     ViewData["Title"] = "Listagem de Livros";
 
-    // As duas variáveis puxam a informação salva no ViewData em LivroController
+    @* As duas variáveis puxam a informação salva no ViewData em LivroController *@
     int iPagina = Int32.Parse(ViewData["LivrosPorPagina"].ToString());
     int aPagina = Int32.Parse(ViewData["PaginaAtual"].ToString());
 
-    // Numero da pagina é igual a: o total de itens na model é menor que 3(iPagina)? Se sim, usa o comando Model Count para a listagem, do contrário, utiliza o total da iPagina(3).//
+    @* Numero da pagina é igual a: o total de itens na model é menor que 3(iPagina)? Se sim, usa o comando Model Count para a listagem, do contrário, utiliza o total da iPagina(3). *@
     int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
 
-    // O total de paginas que aparecem é igual a: o total de itens na model dividido pelo número de paginas criadas, somado a um calculo que verifica se a divisão possui resto ou não, para adicionar a pagina com os itens restantes.
+    @* O total de paginas que aparecem é igual a: o total de itens na model dividido pelo número de paginas criadas, somado a um calculo que verifica se a divisão possui resto ou não, para adicionar a pagina com os itens restantes. *@
     int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
 }
 <div class="row">
@@ -28,14 +28,14 @@
             </div>
 
             <div class="form-group mb-2 me-sm-3">
-                <select  class="form-control" name="iPagina" id="iPagina">
+                <select class="form-control" name="iPagina" id="iPagina">
                     <option value="10">10 Livros</option>
                     <option value="30">30 Livros</option>
                     <option value="@Model.Count">Todos</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2 mx-sm-3">Pesquisar</button>
+            <button type="submit" class="btn btn-dark mb-2 mx-sm-3">Pesquisar</button>
         </form>
     </div>
 </div>
@@ -49,8 +49,8 @@
         }
         else
         {
-            <table class="table table-striped">
-                <thead>
+            <table class="table table-dark table-striped" style="text-align: center;">
+                <thead class="table-dark table-bordered border-light">
                     <tr>
                         <th>Id</th>
                         <th>Titulo</th>
@@ -68,18 +68,20 @@
                             <td>@Model[i].Titulo</td>
                             <td>@Model[i].Autor</td>
                             <td>@Model[i].Ano</td>
-                            <td><a href="/Livro/Edicao/@Model[i].Id">Editar</a></td>
+                            <td><a class="btn btn-light" href="/Livro/Edicao/@Model[i].Id">Editar</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
 
-        <div style="text-align: right;" id="SeletorPagina">
+        <div class="d-flex flex-row justify-content-end align-items-center" id="SeletorPagina">
             <span>Página</span>
             @for (int i = 1; i <= nTotalPagina; i++)
             {
-                <span style="font-size: 20px; font-weight: bold;"><a href="/Livro/Listagem?aPagina=@i">@i </a></span>
+                <span style="font-size: 20px; font-weight: bold;">
+                    <a class="btn btn-outline-dark btn-sm mx-2" href="/Livro/Listagem?aPagina=@i">@i </a>
+                </span>
             }
         </div>
     </div>

@@ -21,40 +21,45 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#"
-                                id="menuLivros">Livros</a>
-                            <div class="dropdown-menu" aria-labelledby="menuLivros">
-                                <a class="dropdown-item" href="/Livro/Listagem">Listagem</a>
-                                <a class="dropdown-item" href="/Livro/Cadastro">Cadastro</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown"
-                                href="#">Empréstimo</a>
-                            <div class="dropdown-menu" aria-labelledby="menuEmprestimo">
-                                <a class="dropdown-item" href="/Emprestimo/Listagem">Listagem</a>
-                                <a class="dropdown-item" href="/Emprestimo/Cadastro">Cadastro</a>
-                            </div>
-                        </li>
-                        @if (Context.Session.GetInt32("idLogin") == 1)
+
+                        @if (Context.Session.GetInt32("idLogin") > 0)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#">Usuários</a>
-                                <div class="dropdown-menu" aria-labelledby="menuEmprestimo">
-                                    <a class="dropdown-item" href="/Home/Listagem">Listagem</a>
-                                    <a class="dropdown-item" href="/Home/Cadastro">Cadastro</a>
+                                <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#"
+                                id="menuLivros">Livros</a>
+                                <div class="dropdown-menu" aria-labelledby="menuLivros">
+                                    <a class="dropdown-item" href="/Livro/Listagem">Listagem</a>
+                                    <a class="dropdown-item" href="/Livro/Cadastro">Cadastro</a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown"
+                                href="#">Empréstimo</a>
+                                <div class="dropdown-menu" aria-labelledby="menuEmprestimo">
+                                    <a class="dropdown-item" href="/Emprestimo/Listagem">Listagem</a>
+                                    <a class="dropdown-item" href="/Emprestimo/Cadastro">Cadastro</a>
+                                </div>
+                            </li>
+                            @if (Context.Session.GetInt32("idLogin") == 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#">Usuários</a>
+                                    <div class="dropdown-menu" aria-labelledby="menuEmprestimo">
+                                        <a class="dropdown-item" href="/Home/Listagem">Listagem</a>
+                                        <a class="dropdown-item" href="/Home/Cadastro">Cadastro</a>
+                                    </div>
+                                </li>
+                            }
                         }
                     </ul>
                 </div>
+
             </div>
             @if (Context.Session.GetInt32("idLogin") > 0)
-            {        
-                <div class="d-flex flex-row justify-content-center align-items-center">            
-                    <span class="text-light">@Context.Session.GetString("nomeLogin")</span> 
-                    <a class="btn btn-primary btn-sm mx-2" asp-action="UserLogout">Logout</a>              
+            {
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <span class="text-light">@Context.Session.GetString("nomeLogin")</span>
+                    <a class="btn btn-primary btn-sm mx-2" asp-action="UserLogout">Logout</a>
                 </div>
             }
         </nav>
@@ -66,9 +71,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-light bg-dark">
         <div class="container">
-            &copy; 2019 - Biblioteca - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - Biblioteca - Versão 2.0(beta) <a asp-area="" asp-controller="Home"
+                asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

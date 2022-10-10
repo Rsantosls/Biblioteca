@@ -86,14 +86,14 @@ namespace Biblioteca.Controllers
                     }
                     else
                     {
-                        ViewData["Erro"] = "Erro";
+                        ViewData["Erro02"] = "Falha no login. Tente novamente.";
                         Console.WriteLine("Erro de login_02");
                         return View();
                     }
                 }
                 else
                 {
-                    ViewData["Erro"] = "Erro";
+                    ViewData["Erro01"] = "Usuário incorreto. Tente novamente.";
                     Console.WriteLine("Erro de login_01");
                     return View();
                 }

@@ -13,13 +13,13 @@
         }
         else
         {
-            <table class="table table-striped">
-                <thead>
+            <table class="table table-dark table-striped" style="text-align: center;">
+                <thead class="table-dark table-bordered border-light">
                     <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Usuario</th>
-                        <th></th>
+                        <th class="col-1">Id</th>
+                        <th class="col-4">Nome</th>
+                        <th class="col-4">Usuario</th>
+                        <th class="col-3"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,12 +28,18 @@
                         <tr>
                             <td>@l.Id</td>
                             <td>@l.Nome</td>
-                            <td>@l.Usuario</td>                            
-                            <td><a href="/Home/Edicao/@l.Id">Editar</a></td>
-                            @if(l.Id != 1)
+                            <td>@l.Usuario</td>
+                            @if (l.Id != 1)
                             {
-                                <td><a href="/Home/Remover?Id=@l.Id">Exluir</a></td>
-                            }     
+                                <td>
+                                    <a class="btn btn-light" href="/Home/Edicao/@l.Id">Editar</a>
+                                    <a class="btn btn-danger" href="/Home/Remover?Id=@l.Id">Exluir</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td><a class="btn btn-light" href="/Home/Edicao/@l.Id">Editar</a></td>
+                            }
                         </tr>
                     }
                 </tbody>
