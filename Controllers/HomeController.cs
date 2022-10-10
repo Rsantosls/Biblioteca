@@ -48,22 +48,22 @@ namespace Biblioteca.Controllers
                 // Debug
                 // string senhaDBCrip = MD5Hash.senhaHash(login.Senha);
                 // Saída das variaveis que armazenam os dados escritos 
-                Console.WriteLine("==================");
-                Console.WriteLine("Usuario (input): " + l.Usuario);
-                Console.WriteLine("senha (input): " + l.Senha);
-                Console.WriteLine("senha Criptografada (input): " + senhaCrip);
-                Console.WriteLine("==================");
-                Console.WriteLine("");
+                // Console.WriteLine("==================");
+                // Console.WriteLine("Usuario (input): " + l.Usuario);
+                // Console.WriteLine("senha (input): " + l.Senha);
+                // Console.WriteLine("senha Criptografada (input): " + senhaCrip);
+                // Console.WriteLine("==================");
+                // Console.WriteLine("");
 
                 // Saída das variaveis que armazenam os dados da database
-                Console.WriteLine("==================");
-                Console.WriteLine("Usuário (database): " + login.Usuario);
-                Console.WriteLine("Senha (database): " + login.Senha);
-                Console.WriteLine("Senha Criptografada (database): " + login.Senha);
-                Console.WriteLine("Id (database): " + login.Id);
-                Console.WriteLine("Nome (database): " + login.Nome);
-                Console.WriteLine("==================");
-                Console.WriteLine("");
+                // Console.WriteLine("==================");
+                // Console.WriteLine("Usuário (database): " + login.Usuario);
+                // Console.WriteLine("Senha (database): " + login.Senha);
+                // Console.WriteLine("Senha Criptografada (database): " + login.Senha);
+                // Console.WriteLine("Id (database): " + login.Id);
+                // Console.WriteLine("Nome (database): " + login.Nome);
+                // Console.WriteLine("==================");
+                // Console.WriteLine("");
 
 
                 // Caso algum campo seja nulo, já emite o erro
@@ -77,23 +77,23 @@ namespace Biblioteca.Controllers
                         HttpContext.Session.SetString("usuarioLogin", login.Usuario);
 
                         // Debug
-                        Console.WriteLine("==================");
-                        Console.WriteLine("Login feito com sucesso");
-                        Console.WriteLine("==================");
-                        Console.WriteLine("");
+                        // Console.WriteLine("==================");
+                        // Console.WriteLine("Login feito com sucesso");
+                        // Console.WriteLine("==================");
+                        // Console.WriteLine("");
                         return RedirectToAction("Index");
                     }
                     else
                     {
                         ViewData["Erro02"] = "Falha no login. Tente novamente.";
-                        Console.WriteLine("Erro de login_02");
+                        // Console.WriteLine("Erro de login_02");
                         return View();
                     }
                 }
                 else
                 {
                     ViewData["Erro01"] = "Usuário incorreto. Tente novamente.";
-                    Console.WriteLine("Erro de login_01");
+                    // Console.WriteLine("Erro de login_01");
                     return View();
                 }
             }
