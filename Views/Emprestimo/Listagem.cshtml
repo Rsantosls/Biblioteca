@@ -6,7 +6,13 @@
     int iPagina = Int32.Parse(ViewData["LivrosPorPagina"].ToString());
     int aPagina = Int32.Parse(ViewData["PaginaAtual"].ToString());
     int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
+    Console.WriteLine("nPagina: " + nPagina);
+    
+    @* Fiz esse if porque estava dando erro no "nTotalPagina", que estava dividindo por zero. Comete esse if para você replicar o erro. *@
+    if (nPagina == 0) { nPagina = 1; }
+
     int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
+    Console.WriteLine("nTotalPagina: " + nTotalPagina);
     string alert = "";
     string alertBtn = "";
 }
@@ -51,7 +57,7 @@
                 <thead class="table-dark table-bordered border-light">
                     <tr>
                         <th>Id</th>
-                        <th>Usuario</th>
+                        <th>Usuário</th>
                         <th>Data Empréstimo</th>
                         <th>Data Devolução</th>
                         <th>Livro</th>

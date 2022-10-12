@@ -27,9 +27,7 @@ namespace Biblioteca.Models
                 login.Usuario = l.Usuario;
                 // Aqui eu uso uma variavel que salva temporiamente uma nova senha que substituirá a que está na database.
                 login.Senha = MD5Hash.senhaHash(l.NovaSenha).ToLower();
-
                 bc.SaveChanges();
-
             }
         }
 

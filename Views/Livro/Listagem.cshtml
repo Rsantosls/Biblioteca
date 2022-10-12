@@ -9,6 +9,9 @@
     @* Numero da pagina é igual a: o total de itens na model é menor que 3(iPagina)? Se sim, usa o comando Model Count para a listagem, do contrário, utiliza o total da iPagina(3). *@
     int nPagina = (Model.Count < iPagina ? Model.Count : iPagina);
 
+    @* Fiz esse if porque estava dando erro no "nTotalPagina", que estava dividindo por zero. Comete esse if para você replicar o erro. *@
+    if (nPagina == 0) { nPagina = 1; }
+
     @* O total de paginas que aparecem é igual a: o total de itens na model dividido pelo número de paginas criadas, somado a um calculo que verifica se a divisão possui resto ou não, para adicionar a pagina com os itens restantes. *@
     int nTotalPagina = Model.Count / nPagina + (Model.Count % nPagina == 0 ? 0 : 1);
 }

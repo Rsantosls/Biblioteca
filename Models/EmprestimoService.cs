@@ -47,12 +47,12 @@ namespace Biblioteca.Models
 
                 switch(filtro.TipoFiltro)
                     {
-                        case "Usuário":
-                            query = bc.Emprestimos.Where(e => e.NomeUsuario.Contains(filtro.Filtro));
+                        case "Usuario":
+                            query = bc.Emprestimos.Where(e => e.NomeUsuario.ToLower().Contains(filtro.Filtro));
                         break;
 
                         case "Livro":
-                            query = bc.Emprestimos.Where(e => e.Livro.Titulo.Contains(filtro.Filtro));
+                            query = bc.Emprestimos.Where(e => e.Livro.Titulo.ToLower().Contains(filtro.Filtro));
                         break;
 
                         default:
